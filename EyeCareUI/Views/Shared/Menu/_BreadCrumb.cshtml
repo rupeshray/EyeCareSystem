@@ -1,0 +1,30 @@
+﻿
+<div id='myModal' class='modal fade'>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+<div id='confirmationModal' class='modal fade'>
+    <div class="modal-dialog modal-m">
+        <div class="modal-content">
+            <div id='confirmModalContent'></div>
+        </div>
+    </div>
+</div>
+
+
+@if (Model.EnableBreadCrumb)
+{
+    <div class="content-header p-2">
+        <div class="container-fluid">
+            <div class="row mb-2 align-items-center">
+                <div class="col-sm-6">
+                    <h4 class="m-0 header-font"><a href="@(Model?.BaseURL)">@(Model?.BreadCrumbTitle)</a></h4>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+}
+

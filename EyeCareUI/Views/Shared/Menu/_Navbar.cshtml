@@ -1,0 +1,93 @@
+﻿
+
+<link rel="stylesheet" href="~/Scripts/bootstrap-switch/css/bootstrap3/bootstrap-switch.min.css" />
+<nav class="main-header navbar navbar-expand navbar-dark " id="navbar">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+
+    </ul>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+                <i class="fa fa-user"><sup class="badge badge-success" id="onlineClient"></sup></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <a href="#" class="dropdown-item">
+                    <!-- Message Start -->
+                    <div class="media align-items-center">
+                        <img src="~/Images/Profiles/avatar.png" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                        <div class="media-body">
+                            <h3 class="dropdown-item-title">
+                                Rupesh Ray
+                            </h3>
+                        </div>
+                    </div>
+                    <!-- Message End -->
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="/Authentication/ChangePasswordAsync" class="dropdown-item dropdown-header text-left" title="Change Password"><i class="fas fa-key mr-2" title="Change Password"></i>Change Password</a>
+                <div class="dropdown-divider"></div>
+                <a href="/Authentication/LogOff" class="dropdown-item dropdown-footer text-left" title="Logout"><i class="fas fa-power-off mr-2" title="Logout"></i>Logout</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                <i class="fas fa-expand-arrows-alt"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <input type="checkbox" id="layoutMode" class="form-control"  />
+        </li>
+    </ul>
+</nav>
+
+<script src="~/Scripts/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript">
+    let loginName = '';
+    $(document).ready(function () {
+        $('#layoutMode').bootstrapSwitch({
+            onText: 'Dark',
+            offText: 'Light',
+            onColor: 'dark',
+            offColor: 'light',
+            size: 'small',
+            animate: true,
+            onSwitchChange: function (event) {
+                if (event.target.checked) {
+                    SaveLayoutMode(1);
+                    $('body').addClass('dark-mode')
+                    $('#navbar').addClass('navbar-dark')
+                    $('#mainbar').addClass('sidebar-dark-primary')
+                    $('#mainbar').removeClass('sidebar-light-primary')
+                } else {
+                    SaveLayoutMode(2);
+                    $('body').removeClass('dark-mode')
+                    $('#navbar').removeClass('navbar-dark')
+                    $('#mainbar').removeClass('sidebar-dark-primary')
+                    $('#mainbar').addClass('sidebar-light-primary')
+                }
+            }
+        });
+        function SaveLayoutMode(layout) {
+            $.ajax({
+                url: '/JSON/SaveLayoutMode_JsonAsync',
+                type: 'POST',
+                data: { layoutMode: layout },
+                success: function (result) {
+                    toastr.success('Layout Mode Updated')
+                    if (result == '"_Login_"') {
+                        window.location = "/Authentication/LoginAsync";
+                        return;
+                    }
+                }
+            });
+        }
+    });
+</script>
+<script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script src="~/Scripts/Custom/ClientOnline.js"></script>
