@@ -31,16 +31,16 @@
 <body class="hold-transition layout-navbar-fixed layout-footer-fixed sidebar-collapse dark-mode">
     <div class="wrapper">
         <!-- Preloader -->
-        @Html.Partial("~/Views/Shared/Menu/_Logo.cshtml")
+        @await Html.PartialAsync("~/Views/Shared/Menu/_Logo.cshtml")
         <!-- Navbar -->
-        @Html.Partial("~/Views/Shared/Menu/_Navbar.cshtml")
+        @await Html.PartialAsync("~/Views/Shared/Menu/_Navbar.cshtml")
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
-        @Html.Partial("~/Views/Shared/Menu/_MainSidebar.cshtml")
+        @await Html.PartialAsync("~/Views/Shared/Menu/_MainSidebar.cshtml")
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            @Html.Partial("~/Views/Shared/Menu/_BreadCrumb.cshtml")
+            @await Html.PartialAsync("~/Views/Shared/Menu/_BreadCrumb.cshtml")
             <!-- /.content-header -->
             <!-- Main content -->
             <section class="content">
@@ -52,7 +52,7 @@
         </div>
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
-        @Html.Partial("~/Views/Shared/Menu/_Footer.cshtml")
+        @await Html.PartialAsync("~/Views/Shared/Menu/_Footer.cshtml")
     </div>
     <!-- ./wrapper -->
 
