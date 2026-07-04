@@ -1,10 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace EyeCareUI.Models
+﻿namespace EyeCareUI.Models
 {
     public class LoginViewModel
     {
-
+        public LoginModel? loginModel { get; set; }
     }
 }
 
