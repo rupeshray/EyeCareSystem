@@ -7,10 +7,15 @@ namespace EyeCareUI.Controllers
     public class AuthenticationController : Controller
     {
         // GET: AuthenticationController
+        private readonly ILogger<AuthenticationController> _logger;
+        public AuthenticationController(ILogger<AuthenticationController> logger)
+        {
+            _logger = logger;
+        }
 
         [AllowAnonymous]
         [AcceptVerbs("GET")]
-        public ActionResult LoginAsync()
+        public IActionResult LoginAsync()
         {
             return View(new LoginViewModel
             {
@@ -19,7 +24,7 @@ namespace EyeCareUI.Controllers
         }
 
         [AcceptVerbs("GET")]
-        public ActionResult LogoutAsync()
+        public IActionResult LogoutAsync()
         {
             return RedirectToAction("LoginAsync", "Authentication");
         }
