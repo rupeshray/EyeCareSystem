@@ -15,18 +15,31 @@ namespace EyeCareUI.Controllers
 
         [AllowAnonymous]
         [AcceptVerbs("GET")]
-        public IActionResult LoginAsync()
+
+        public IActionResult Login()
         {
             return View(new LoginViewModel
             {
-
+                loginModel = new LoginModel { UserName = string.Empty, Password = string.Empty },
             });
         }
 
-        [AcceptVerbs("GET")]
-        public IActionResult LogoutAsync()
+        [AcceptVerbs("POST")]
+        public IActionResult Login(LoginViewModel model)
         {
-            return RedirectToAction("LoginAsync", "Authentication");
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // If authentication fails, return the login view with an error message
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            return View(model);
+        }
+
+        [AcceptVerbs("GET")]
+        public IActionResult Logout()
+        {
+            return RedirectToAction("Login", "Authentication");
         }
 
     }

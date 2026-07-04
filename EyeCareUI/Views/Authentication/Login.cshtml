@@ -1,0 +1,61 @@
+﻿@model LoginViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-xl-8 col-lg-10 col-md-7">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row mx-0">
+                    @*<div class="col-lg-6 d-none d-lg-block bg-login-image"></div>*@
+                    <div class="col-lg-5 py-4 px-4 login-description-block">
+                        <div>
+                            <div class="text-gray-900 mb-1">
+                                <img src="~/Images/Logo/vconnect.png" class="pb-2" />
+                            </div>
+                            <p class=" text-gray-900">
+                                <small>
+                                    Eye Care Hospital
+                                </small>
+                            </p>
+                            <div>
+
+                                <div class="font-12 mb-2">Powered By:</div><img src="~/Images/Logo/digitalagenepallogo.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="px-3 py-5">
+                            @using (Html.BeginForm(null, null, null, FormMethod.Post, null, new { id = "loginform", enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "")
+                                <div class="form-group">
+                                    <label class="h6 form-label" for="username">Username </label>
+                                    @Html.TextBoxFor(model => model.loginModel.UserName, new { @class = "form-control form-control-sm form-control-user", @placeholder = "User Name" })
+                                    @Html.ValidationMessageFor(model => model.loginModel.UserName)
+                                </div>
+                                <div class="form-group">
+                                    <label class="h6 form-label" for="password">Password </label>
+                                    @Html.PasswordFor(model => model.loginModel.Password, new { @class = "form-control form-control-sm form-control-user", @placeholder = "Password" })
+                                    @Html.ValidationMessageFor(model => model.loginModel.Password)
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox small">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                        <a href="/Authentication/ForgotPasswordAsync" class="float-right">Forgot Password?</a>
+                                    </div>
+                                </div>
+                                <button id="btnLogin" type="submit" class="btn btn-success btn-user float-right mb-3 px-2 py-1">Login </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

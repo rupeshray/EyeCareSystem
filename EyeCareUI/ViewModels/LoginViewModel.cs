@@ -2,7 +2,7 @@
 {
     public class LoginViewModel
     {
-        public LoginModel? loginModel { get; set; }
+        public required LoginModel loginModel { get; set; }
     }
 }
 
