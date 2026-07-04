@@ -1,7 +1,27 @@
+using EyeCareUI.DataBase;
+using EyeCareUI.HUB;
+using EyeCareUI.Repository;
+using EyeCareUI.Services.AuthenticationServices;
+using EyeCareUI.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add SignalR
+builder.Services.AddSignalR();
+
+//Add DbContext with SQL Server
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//Register services
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+builder.Services.AddScoped<IAuthenticationService,AuthenticationService>();
 
 var app = builder.Build();
 
@@ -19,6 +39,9 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.UseStaticFiles();
+
+app.MapHub<ClientIPHUB>("/RemoteIPHUB");
+
 
 app.MapControllerRoute(
     name: "default",

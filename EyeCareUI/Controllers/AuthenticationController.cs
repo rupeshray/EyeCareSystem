@@ -1,4 +1,5 @@
 using EyeCareUI.Models;
+using EyeCareUI.Services.AuthenticationServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +9,11 @@ namespace EyeCareUI.Controllers
     {
         // GET: AuthenticationController
         private readonly ILogger<AuthenticationController> _logger;
-        public AuthenticationController(ILogger<AuthenticationController> logger)
+        private readonly IAuthenticationService _authenticationService;
+        public AuthenticationController(ILogger<AuthenticationController> logger, IAuthenticationService authenticationService)
         {
             _logger = logger;
+            _authenticationService = authenticationService;
         }
 
         [AllowAnonymous]
@@ -34,6 +37,12 @@ namespace EyeCareUI.Controllers
             // If authentication fails, return the login view with an error message
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return View(model);
+        }
+
+        [AcceptVerbs("GET")]
+        public IActionResult ChangePassword()
+        {
+            return View();
         }
 
         [AcceptVerbs("GET")]
