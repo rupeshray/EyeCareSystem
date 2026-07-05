@@ -1,6 +1,7 @@
 using EyeCareUI.DataBase;
 using EyeCareUI.HUB;
 using EyeCareUI.Services.AuthenticationServices;
+using EyeCareUI.Services.SystemNavigationServices;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //Register services
+builder.Services.AddScoped<INavigationService, NavigationService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 var app = builder.Build();

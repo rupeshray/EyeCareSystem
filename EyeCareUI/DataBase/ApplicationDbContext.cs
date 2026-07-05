@@ -261,7 +261,7 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<SystemNavigation>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SystemNa__3214EC07F1CBCC1F");
+            entity.HasKey(e => e.Id).HasName("PK__SystemNa__3214EC07099C82FB");
 
             entity.ToTable("SystemNavigation");
 
@@ -299,6 +299,15 @@ public partial class ApplicationDbContext : DbContext
                 .HasMaxLength(500)
                 .IsUnicode(false);
             entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.SystemNavigationCreatedByNavigations)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__SystemNav__Creat__7D439ABD");
+
+            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.SystemNavigationUpdatedByNavigations)
+                .HasForeignKey(d => d.UpdatedBy)
+                .HasConstraintName("FK__SystemNav__Updat__7E37BEF6");
         });
 
         OnModelCreatingPartial(modelBuilder);

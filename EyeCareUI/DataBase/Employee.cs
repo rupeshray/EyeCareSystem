@@ -44,4 +44,8 @@ public partial class Employee
     public virtual Company IdCompanyNavigation { get; set; } = null!;
 
     public virtual Department? IdDepartmentNavigation { get; set; }
+
+    public virtual ICollection<SystemNavigation> SystemNavigationCreatedByNavigations { get; set; } = new List<SystemNavigation>();
+
+    public virtual ICollection<SystemNavigation> SystemNavigationUpdatedByNavigations { get; set; } = new List<SystemNavigation>();
 }
