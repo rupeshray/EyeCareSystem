@@ -1,16 +1,18 @@
-﻿namespace EyeCareUI.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EyeCareUI.Models
 {
-    public class BaseModel<T> where T : class
+    public abstract class BaseModel<T>
     {
-        public T? Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public required virtual T Id { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
-
         public int? UpdatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
-
         public DateTime? UpdatedOn { get; set; }
-
         public required string ClientIp { get; set; }
     }
 }

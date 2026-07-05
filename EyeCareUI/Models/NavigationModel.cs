@@ -1,9 +1,7 @@
 ﻿namespace EyeCareUI.Models
 {
-    public class NavigationModel
+    public class NavigationModel : BaseModel<int>
     {
-        public int Id { get; set; }
-
         public int? IdParent { get; set; }
 
         public string Navigation { get; set; } = null!;
