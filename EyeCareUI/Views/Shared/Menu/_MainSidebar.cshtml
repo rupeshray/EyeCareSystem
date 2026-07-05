@@ -1,7 +1,6 @@
-﻿@* 
-@{
-    var menuList ="";
-}
+﻿@using EyeCareUI.Models.SystemNavigation
+@await Component.InvokeAsync("Navigation")
+@model List<MenuModel>
 <aside class="main-sidebar  sidebar-dark-primary  elevation-4" id="mainbar">
     <!-- Brand Logo -->
     <a href="/home/Dashboard" class="brand-link border-bottom-0">
@@ -13,9 +12,9 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                @foreach (var ParentMenu in menuList.OrderBy(x => x.ParentOrder))
+                @foreach (var ParentMenu in Model.OrderBy(x => x.ParentOrder))
                 {
-                    if (ParentMenu.IdParent == null && menuList.Where(x => x.IdParent == ParentMenu.IdSideNavigation).Count() == 0)
+                    if (ParentMenu.IdParent == null && Model.Where(x => x.IdParent == ParentMenu.IdSideNavigation).Count() == 0)
                     {
                         <li class="@ParentMenu.CSSClass @ParentMenu.ParentStatusClass">
                             <a href="@ParentMenu.DefaultURL" class="@ParentMenu.CSSSubClass @ParentMenu.StatusClass">
@@ -24,7 +23,7 @@
                             </a>
                         </li>
                     }
-                    else if (menuList.Where(x => x.IdParent == ParentMenu.IdSideNavigation).Count() > 0)
+                    else if (Model.Where(x => x.IdParent == ParentMenu.IdSideNavigation).Count() > 0)
                     {
                         <li class="@ParentMenu.CSSClass @ParentMenu.ParentStatusClass">
                             <a href="#" class="@ParentMenu.CSSSubClass @ParentMenu.StatusClass">
@@ -35,7 +34,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                @foreach (var childMenu in menuList.Where(x => x.IdParent == ParentMenu.IdSideNavigation).OrderBy(x => x.ChildOrder))
+                                @foreach (var childMenu in Model.Where(x => x.IdParent == ParentMenu.IdSideNavigation).OrderBy(x => x.ChildOrder))
                                 {
                                     <li class="@childMenu.CSSClass">
                                         <a href="@childMenu.DefaultURL" class="@childMenu.CSSSubClass @childMenu.StatusClass">
@@ -54,4 +53,3 @@
     </div>
     <!-- /.sidebar -->
 </aside>
- *@
