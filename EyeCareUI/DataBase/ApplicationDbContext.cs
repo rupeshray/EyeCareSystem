@@ -25,6 +25,10 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Employee> Employees { get; set; }
 
+    public virtual DbSet<SystemErrorRecord> SystemErrorRecords { get; set; }
+
+    public virtual DbSet<SystemNavigation> SystemNavigations { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");
 
@@ -229,6 +233,72 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.IdDepartmentNavigation).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.IdDepartment)
                 .HasConstraintName("FK__Employee__IdDepa__6383C8BA");
+        });
+
+        modelBuilder.Entity<SystemErrorRecord>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("SystemErrorRecord");
+
+            entity.Property(e => e.Area)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.ClientIp)
+                .HasMaxLength(32)
+                .IsUnicode(false)
+                .HasColumnName("ClientIP");
+            entity.Property(e => e.Controller)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.CreatedOn)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.ExceptionType).IsUnicode(false);
+            entity.Property(e => e.MessageInfo).IsUnicode(false);
+            entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
+        });
+
+        modelBuilder.Entity<SystemNavigation>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__SystemNa__3214EC07F1CBCC1F");
+
+            entity.ToTable("SystemNavigation");
+
+            entity.Property(e => e.ActionName)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.Area)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.ClientIp)
+                .HasMaxLength(32)
+                .IsUnicode(false)
+                .HasColumnName("ClientIP");
+            entity.Property(e => e.Controller)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+            entity.Property(e => e.Cssclass)
+                .HasMaxLength(300)
+                .IsUnicode(false)
+                .HasColumnName("CSSClass");
+            entity.Property(e => e.Cssicon)
+                .HasMaxLength(300)
+                .IsUnicode(false)
+                .HasColumnName("CSSIcon");
+            entity.Property(e => e.CsssubClass)
+                .HasMaxLength(300)
+                .IsUnicode(false)
+                .HasColumnName("CSSSubClass");
+            entity.Property(e => e.CsssubIcon)
+                .HasMaxLength(300)
+                .IsUnicode(false)
+                .HasColumnName("CSSSubIcon");
+            entity.Property(e => e.Navigation)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
         });
 
         OnModelCreatingPartial(modelBuilder);

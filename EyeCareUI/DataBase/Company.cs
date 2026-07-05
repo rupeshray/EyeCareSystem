@@ -1,4 +1,7 @@
-﻿namespace EyeCareUI.DataBase;
+﻿using System;
+using System.Collections.Generic;
+
+namespace EyeCareUI.DataBase;
 
 public partial class Company
 {
