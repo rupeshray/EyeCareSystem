@@ -1,1 +1,55 @@
-﻿
+﻿@using EyeCareUI.Models.SystemNavigation
+@await Component.InvokeAsync("Navigation")
+@model List<MenuModel>
+<aside class="main-sidebar  sidebar-dark-primary  elevation-4" id="mainbar">
+    <!-- Brand Logo -->
+    <a href="/home/Dashboard" class="brand-link border-bottom-0">
+        <img src="~/Images/Logo/vconnect.png" alt="V-Connect" class="brand-image">
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+                @foreach (var ParentMenu in Model.OrderBy(x => x.ParentOrder))
+                {
+                    if (ParentMenu.IdParent == null && Model.Where(x => x.IdParent == ParentMenu.IdSideNavigation).Count() == 0)
+                    {
+                        <li class="@ParentMenu.CSSClass @ParentMenu.ParentStatusClass">
+                            <a href="@ParentMenu.DefaultURL" class="@ParentMenu.CSSSubClass @ParentMenu.StatusClass">
+                                <i class="nav-icon @ParentMenu.CSSIcon"></i>
+                                <p>@ParentMenu.Menu</p>
+                            </a>
+                        </li>
+                    }
+                    else if (Model.Where(x => x.IdParent == ParentMenu.IdSideNavigation).Count() > 0)
+                    {
+                        <li class="@ParentMenu.CSSClass @ParentMenu.ParentStatusClass">
+                            <a href="#" class="@ParentMenu.CSSSubClass @ParentMenu.StatusClass">
+                                <i class="nav-icon @ParentMenu.CSSIcon"></i>
+                                <p>
+                                    @ParentMenu.Menu
+                                    <i class="@ParentMenu.CSSSubIcon"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @foreach (var childMenu in Model.Where(x => x.IdParent == ParentMenu.IdSideNavigation).OrderBy(x => x.ChildOrder))
+                                {
+                                    <li class="@childMenu.CSSClass">
+                                        <a href="@childMenu.DefaultURL" class="@childMenu.CSSSubClass @childMenu.StatusClass">
+                                            <i class="nav-icon @childMenu.CSSIcon"></i>
+                                            <p>@childMenu.Menu</p>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                }
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>
