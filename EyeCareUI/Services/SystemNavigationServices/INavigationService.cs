@@ -6,6 +6,6 @@ namespace EyeCareUI.Services.SystemNavigationServices
     public interface INavigationService
     {
         Task<List<NavigationModel>> GetAllAsync();
-        Task<List<MenuModel>> GetMenuAsync();
+        Task<List<MenuModel>> GetMenuAsync(int IdUser, string Area, string Controller, string Action);
     }
 }
