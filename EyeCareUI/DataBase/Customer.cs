@@ -35,7 +35,7 @@ public partial class Customer
 
     public int? UpdatedBy { get; set; }
 
-    public DateTime? CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }
 
     public DateTime? UpdatedDate { get; set; }
 

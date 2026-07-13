@@ -1,10 +1,16 @@
 using EyeCareUI.DataBase;
+using EyeCareUI.GlobalModels;
 using EyeCareUI.HUB;
 using EyeCareUI.Services.AuthenticationServices;
+using EyeCareUI.Services.CustomerServices;
 using EyeCareUI.Services.SystemNavigationServices;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<SystemStructureModel>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -20,6 +26,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //Register services
 builder.Services.AddScoped<INavigationService, NavigationService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 var app = builder.Build();
 

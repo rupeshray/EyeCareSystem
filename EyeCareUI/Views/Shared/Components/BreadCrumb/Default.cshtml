@@ -1,0 +1,20 @@
+﻿@model EyeCareUI.GlobalModels.BreadCrumbModel;
+@if (Model == null)
+{
+    return;
+}
+
+@if (Model.EnableBreadCrumb)
+{
+    <div class="breadcrumb-wrapper">
+
+        <h4>
+            @Model.BreadCrumbTitle
+        </h4>
+
+        <small>
+            @Model.BreadCrumbSubTitle
+        </small>
+
+    </div>
+}
