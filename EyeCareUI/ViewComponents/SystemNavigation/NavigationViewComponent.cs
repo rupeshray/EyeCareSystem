@@ -11,7 +11,7 @@ namespace EyeCareUI.ViewComponents.SystemNavigation
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var menus = await _navigationService.GetMenuAsync(1,"","","");
+            var menus = await _navigationService.GetMenuAsync(2,"","Home","Index");
             return View(menus);
         }
     }

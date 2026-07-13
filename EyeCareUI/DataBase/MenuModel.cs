@@ -1,6 +1,6 @@
-﻿namespace EyeCareUI.Models.SystemNavigation
+﻿namespace EyeCareUI.DataBase
 {
-    public class MenuModel
+    public partial class MenuModel
     {
         public int IdSideNavigation { get; set; }
         public Nullable<int> IdParent { get; set; }

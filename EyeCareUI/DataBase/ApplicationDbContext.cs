@@ -6,10 +6,6 @@ namespace EyeCareUI.DataBase;
 
 public partial class ApplicationDbContext : DbContext
 {
-    public ApplicationDbContext()
-    {
-    }
-
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
@@ -29,8 +25,7 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<SystemNavigation> SystemNavigations { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");
+    public virtual DbSet<MenuModel> MenuModels { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -309,6 +304,7 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.UpdatedBy)
                 .HasConstraintName("FK__SystemNav__Updat__7E37BEF6");
         });
+        modelBuilder.Entity<MenuModel>().HasNoKey();
 
         OnModelCreatingPartial(modelBuilder);
     }
